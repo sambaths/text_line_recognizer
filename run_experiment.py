@@ -6,6 +6,8 @@ import importlib
 from typing import Dict
 import os
 
+import wandb
+
 from util import train_model
 
 DEFAULT_TRAIN_ARGS = {"batch_size": 64, "epochs": 16}
@@ -70,6 +72,9 @@ def run_experiment(experiment_config: Dict, save_weights: bool, gpu_ind: int, us
     experiment_config["experiment_group"] = experiment_config.get("experiment_group", None)
     experiment_config["gpu_ind"] = gpu_ind
 
+    if use_wandb:
+        wandb.init(config=experiment_config)
+
 
     train_model(
         model,
@@ -82,6 +87,8 @@ def run_experiment(experiment_config: Dict, save_weights: bool, gpu_ind: int, us
     print(f"Test evaluation: {score}")
 
 
+    if use_wandb:
+        wandb.log({"test_metric": score})
     if save_weights:
         model.save_weights()
 

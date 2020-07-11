@@ -128,14 +128,19 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# data/
-# data/raw/emnist/*.zip
-# data/processed/emnist/
+
+# Data Files
 text_recognizer/weights/
-# data/processed/emnist/byclass.h5 
-# data/raw/emnist/matlab.zip 
 data/raw/nltk/
+wandb/
+
 data/processed/
 test.py
+
+# Big Data Files and h5py files
 *.h5
 *.zip
+
+# pytest
+.pytest_cache/
+text_recognizer/tests/

@@ -1,4 +1,5 @@
 """Emnist Lines dataset: synthetic handwriting lines dataset made from EMNIST characters."""
+import os
 from collections import defaultdict
 from pathlib import Path
 
@@ -35,8 +36,8 @@ class EmnistLinesDataset(Dataset):
         max_length: int = 34,
         min_overlap: float = 0,
         max_overlap: float = 0.33,
-        num_train: int = 500,
-        num_test: int = 50,
+        num_train: int = 10000,
+        num_test: int = 1000,
     ):
         self.emnist = EmnistDataset()
         self.mapping = self.emnist.mapping
@@ -49,8 +50,8 @@ class EmnistLinesDataset(Dataset):
             self.emnist.input_shape[1] * self.max_length,
         )
         self.output_shape = (self.max_length, self.num_classes)
-        self.num_train = num_train
-        self.num_test = num_test
+        self.num_train = 10000 if not 'COLAB_GPU' in os.environ else num_train 
+        self.num_test = 1000 if not 'COLAB_GPU' in os.environ else num_test
         self.x_train = None
         self.y_train = None
         self.x_test = None
