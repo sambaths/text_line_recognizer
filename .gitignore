@@ -134,6 +134,8 @@ data/processed/emnist/
 text_recognizer/weights/
 data/processed/emnist/byclass.h5 
 data/raw/emnist/matlab.zip 
+data/raw/nltk/
 
+test.py
 *.h5
 *.zip
