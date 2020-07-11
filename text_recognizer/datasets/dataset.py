@@ -3,9 +3,7 @@ from pathlib import Path
 import argparse
 import os
 
-from text_recognizer.datasets import util
-# import util
-
+import text_recognizer.util as util
 
 class Dataset:
     """Simple abstract class for datasets."""

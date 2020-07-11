@@ -129,13 +129,13 @@ dmypy.json
 .pyre/
 
 # data/
-data/raw/emnist/*.zip
-data/processed/emnist/
+# data/raw/emnist/*.zip
+# data/processed/emnist/
 text_recognizer/weights/
-data/processed/emnist/byclass.h5 
-data/raw/emnist/matlab.zip 
+# data/processed/emnist/byclass.h5 
+# data/raw/emnist/matlab.zip 
 data/raw/nltk/
-
+data/processed/
 test.py
 *.h5
 *.zip

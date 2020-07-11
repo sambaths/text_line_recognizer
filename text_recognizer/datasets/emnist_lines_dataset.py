@@ -35,8 +35,8 @@ class EmnistLinesDataset(Dataset):
         max_length: int = 34,
         min_overlap: float = 0,
         max_overlap: float = 0.33,
-        num_train: int = 10000,
-        num_test: int = 1000,
+        num_train: int = 500,
+        num_test: int = 50,
     ):
         self.emnist = EmnistDataset()
         self.mapping = self.emnist.mapping
@@ -120,7 +120,7 @@ class EmnistLinesDataset(Dataset):
 
 def get_samples_by_char(samples, labels, mapping):
     samples_by_char = defaultdict(list)
-    for sample, label in zip(samples, labels.flatten()):
+    for i, (sample, label) in enumerate(zip(samples, labels.flatten())):
         samples_by_char[mapping[label]].append(sample)
     return samples_by_char
 
