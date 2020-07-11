@@ -128,7 +128,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-data/
+# data/
 data/raw/emnist/*.zip
 data/processed/emnist/
 text_recognizer/weights/
