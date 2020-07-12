@@ -51,6 +51,7 @@ Werkzeug = "==1.0.0"
 nltk = "*"
 wandb = "*"
 pillow = "*"
+matplotlib = "*"
 
 [requires]
 python_version = "3.6"

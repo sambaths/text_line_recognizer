@@ -132,6 +132,8 @@ dmypy.json
 # Data Files
 text_recognizer/weights/
 data/raw/nltk/
+data/raw/iam/iamdb
+data/interim
 wandb/
 
 data/processed/
