@@ -52,6 +52,7 @@ nltk = "*"
 wandb = "*"
 pillow = "*"
 matplotlib = "*"
+ipykernel = "*"
 
 [requires]
 python_version = "3.6"

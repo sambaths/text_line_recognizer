@@ -5,12 +5,8 @@ import json
 import importlib
 from typing import Dict
 import os
-
+import tensorflow.keras as keras
 import wandb
-
-import sys
-print(sys.path)
-
 from util import train_model
 
 DEFAULT_TRAIN_ARGS = {"batch_size": 64, "epochs": 16}
@@ -76,8 +72,19 @@ def run_experiment(experiment_config: Dict, save_weights: bool, gpu_ind: int, us
     experiment_config["gpu_ind"] = gpu_ind
 
     if use_wandb:
-        wandb.init(config=experiment_config)
-
+        run = wandb.init(config=experiment_config, project='text_line_recognizer-training', resume=True)
+        run.save()
+        print(run.id, run.project, run.entity)
+        
+    
+    if wandb.run.resumed:
+        # restore the best model
+        try:
+            model.load_weights()
+            print('Loading model from our checkpoint !!')
+        except:
+            print("Couldn't load model from our directory, loading from wandb run directory instead !!")
+            model.load_weights_wandb(wandb.restore(model.weights_filename_only, run_path=f'{run.entity}/{run.project}/{run.id}').name)
 
     train_model(
         model,
