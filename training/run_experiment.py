@@ -8,6 +8,9 @@ import os
 
 import wandb
 
+import sys
+print(sys.path)
+
 from util import train_model
 
 DEFAULT_TRAIN_ARGS = {"batch_size": 64, "epochs": 16}

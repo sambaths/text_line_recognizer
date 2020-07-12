@@ -3,6 +3,11 @@ from time import time
 
 from tensorflow.keras.callbacks import EarlyStopping, Callback
 
+from importlib.util import find_spec
+
+if find_spec("text_recognizer") is None:
+    import sys
+    sys.path.append('.')
 
 from text_recognizer.datasets.dataset import Dataset
 from text_recognizer.models.base import Model
