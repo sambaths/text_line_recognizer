@@ -1,4 +1,5 @@
 """Utility functions for text_recognizer module."""
+import base64
 from concurrent.futures import as_completed, ThreadPoolExecutor  # pylint: disable=unused-import
 from pathlib import Path
 from typing import Union
@@ -36,6 +37,16 @@ def read_image(image_uri: Union[Path, str], grayscale=False) -> np.array:
     return img
 
 
+def read_b64_image(b64_string, grayscale=False):
+    """Load base64-encoded images."""
+    imread_flag = cv2.IMREAD_GRAYSCALE if grayscale else cv2.IMREAD_COLOR
+    try:
+        _, b64_data = b64_string.split(",")
+        return cv2.imdecode(np.frombuffer(base64.b64decode(b64_data), np.uint8), imread_flag)
+    except Exception as e:
+        raise ValueError("Could not load image from b64 {}: {}".format(b64_string, e))
+
+
 def write_image(image: np.ndarray, filename: Union[Path, str]) -> None:
     """Write image to file."""
     cv2.imwrite(str(filename), image)
@@ -70,3 +81,14 @@ def download_url(url, filename):
     """Download a file from url to filename, with a progress bar."""
     with TqdmUpTo(unit="B", unit_scale=True, unit_divisor=1024, miniters=1) as t:
         urlretrieve(url, filename, reporthook=t.update_to, data=None)  # nosec
+
+
+def download_urls(urls, filenames):
+    """Download urls to filenames in a multi-threaded way."""
+    with ThreadPoolExecutor() as executor:
+        futures = [executor.submit(urlretrieve, url, filename) for url, filename in zip(urls, filenames)]
+        for future in tqdm(as_completed(futures), total=len(futures)):
+            try:
+                future.result()
+            except Exception as e:  # pylint: disable=broad-except
+                print("Error", e)
