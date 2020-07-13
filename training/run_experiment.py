@@ -127,10 +127,6 @@ def _parse_args():
 def main():
     """Run experiment."""
     args = _parse_args()
-    if args.gpu < 0:
-        gpu_manager = GPUManager()
-        args.gpu = gpu_manager.get_free_gpu() 
-
     experiment_config = json.loads(args.experiment_config)
     os.environ["CUDA_VISIBLE_DEVICES"] = f"{args.gpu}"
     run_experiment(experiment_config, args.save, args.gpu, use_wandb=not args.nowandb)

@@ -169,11 +169,11 @@
         },
         "gitpython": {
             "hashes": [
-                "sha256:39ae158ee8c360ee5a872fc411705430d4875cbe894654edbe39e246e38e4d64",
-                "sha256:90400ecfa87bac36ac75dfa7b62e83a02017b51759f6eef4494e4de775b2b4be"
+                "sha256:2db287d71a284e22e5c2846042d0602465c7434d910406990d5b74df4afb0858",
+                "sha256:fa3b92da728a457dd75d62bb5f3eb2816d99a7fe6c67398e260637a40e3fafb5"
             ],
             "markers": "python_version >= '3.4'",
-            "version": "==3.1.5"
+            "version": "==3.1.7"
         },
         "google-auth": {
             "hashes": [
