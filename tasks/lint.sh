@@ -4,8 +4,6 @@ set +e
 
 FAILURE=false
 
-pipenv shell
-
 echo "safety"
 safety check -r requirements.txt -r requirements-dev.txt || FAILURE=true
 
