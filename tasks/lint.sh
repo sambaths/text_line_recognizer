@@ -5,25 +5,25 @@ set +e
 FAILURE=false
 
 echo "safety"
-safety check -r requirements.txt -r requirements-dev.txt || FAILURE=true
+pipenv run safety check -r requirements.txt -r requirements-dev.txt || FAILURE=true
 
 echo "pylint"
-pylint api text_recognizer training || FAILURE=true
+pipenv run pylint api text_recognizer training || FAILURE=true
 
 echo "pycodestyle"
-pycodestyle api text_recognizer training || FAILURE=true
+pipenv run pycodestyle api text_recognizer training || FAILURE=true
 
 echo "pydocstyle"
-pydocstyle api text_recognizer training || FAILURE=true
+pipenv run pydocstyle api text_recognizer training || FAILURE=true
 
 echo "mypy"
-mypy api text_recognizer training || FAILURE=true
+pipenv run mypy api text_recognizer training || FAILURE=true
 
 echo "bandit"
-bandit -ll -r {api,text_recognizer,training} || FAILURE=true
+pipenv run bandit -ll -r {api,text_recognizer,training} || FAILURE=true
 
 echo "shellcheck"
-shellcheck tasks/*.sh || FAILURE=true
+pipenv run shellcheck tasks/*.sh || FAILURE=true
 
 if [ "$FAILURE" = true ]; then
   echo "Linting failed"
