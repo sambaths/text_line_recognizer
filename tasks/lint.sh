@@ -5,7 +5,7 @@ set +e
 FAILURE=false
 
 echo "safety"
-safety check -r requirements.txt -r requirements-dev.txt || FAILURE=true
+safety check -r requirements.txt || FAILURE=true
 
 echo "pylint"
 pylint api text_recognizer training || FAILURE=true
