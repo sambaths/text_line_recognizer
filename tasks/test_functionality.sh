@@ -1,2 +1,2 @@
 #!/bin/bash
-python -m pytest -s text_recognizer
+pipenv run python -m pytest -s text_recognizer
