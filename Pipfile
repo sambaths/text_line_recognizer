@@ -53,6 +53,12 @@ wandb = "*"
 pillow = "*"
 matplotlib = "*"
 ipykernel = "*"
+pylint = "*"
+safety = "*"
+pycodestyle = "*"
+pydocstyle = "*"
+mypy = "*"
+bandit = "*"
 
 [requires]
 python_version = "3.6"
