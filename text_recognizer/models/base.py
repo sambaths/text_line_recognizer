@@ -45,13 +45,13 @@ class Model:
     def weights_filename(self) -> str:
         DIRNAME.mkdir(parents=True, exist_ok=True)
         return str(DIRNAME / f"{self.name}_weights.h5")
-    
+
     @property
     def weights_filename_only(self) -> str:
         return str(f"{self.name}_weights.h5")
 
     def fit(
-        self, dataset, batch_size: int = 32, epochs: int = 10, augment_val: bool = True, callbacks: list = None, initial_epoch: int =0,
+        self, dataset, batch_size: int = 32, epochs: int = 10, augment_val: bool = True, callbacks: list = None, initial_epoch: int = 0,  # pylint: disable=line-too-long
     ):
         if callbacks is None:
             callbacks = []
@@ -101,10 +101,9 @@ class Model:
 
     def load_weights(self):
         self.network.load_weights(self.weights_filename)
-    
+
     def load_weights_wandb(self, path):
         self.network.load_weights(path)
 
     def save_weights(self):
         self.network.save_weights(self.weights_filename)
-        

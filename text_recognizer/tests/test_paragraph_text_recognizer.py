@@ -4,20 +4,20 @@ from pathlib import Path
 import unittest
 from text_recognizer.paragraph_text_recognizer import ParagraphTextRecognizer
 import text_recognizer.util as util
-
+from importlib.util import find_spec
 
 SUPPORT_DIRNAME = Path(__file__).parents[0].resolve() / "support" / "iam_paragraphs"
 
 os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
-from importlib.util import find_spec
 if find_spec("text_recognizer") is None:
     import sys
     sys.path.append('..')
 
-class TestParagraphTextRecognizer(unittest.TestCase):
-    """Test that it can take non-square images of max dimension larger than 256px."""
 
+class TestParagraphTextRecognizer(unittest.TestCase):
+
+    """Test that it can take non-square images of max dimension larger than 256px."""
     def test_filename(self):  # pylint: disable=R0201
         predictor = ParagraphTextRecognizer()
         num_text_lines_by_name = {"a01-000u-cropped": 7}
