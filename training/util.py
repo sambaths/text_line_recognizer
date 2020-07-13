@@ -4,9 +4,9 @@ from time import time
 from importlib.util import find_spec
 from tensorflow.keras.callbacks import EarlyStopping, Callback, ModelCheckpoint
 import wandb
+from wandb.keras import WandbCallback
 from text_recognizer.datasets.dataset import Dataset
 from text_recognizer.models.base import Model
-from wandb.keras import WandbCallback
 
 if find_spec("text_recognizer") is None:
     import sys
