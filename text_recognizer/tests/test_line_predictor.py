@@ -8,18 +8,19 @@ import numpy as np
 
 import text_recognizer.util as util
 from text_recognizer import LinePredictor
-
+from importlib.util import find_spec
 
 SUPPORT_DIRNAME = Path(__file__).parents[0].resolve() / "support"
 
 os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
-from importlib.util import find_spec
 if find_spec("text_recognizer") is None:
     import sys
     sys.path.append('..')
 
+
 class TestEmnistLinePredictor(unittest.TestCase):
+
     """Test LinePredictor class on the EmnistLines dataset."""
 
     def test_filename(self):
@@ -50,5 +51,3 @@ class TestEmnistLinePredictorVariableImageWidth(unittest.TestCase):
             edit_distance = editdistance.eval(pred, true) / len(pred)
             print(f'Pred: "{pred}" | Confidence: {conf} | True: {true} | Edit distance: {edit_distance}')
             self.assertLess(edit_distance, 0.2)
-
-

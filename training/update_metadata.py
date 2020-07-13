@@ -1,16 +1,14 @@
 #!/usr/bin/env python
 """Update metadata.toml with SHA-256 hash of the current file."""
-from pathlib import Path
 import argparse
-
-import toml
-
+from pathlib import Path
 from importlib.util import find_spec
+import toml
+from text_recognizer import util
+
 if find_spec("text_recognizer") is None:
     import sys
     sys.path.append('.')
-
-from text_recognizer import util
 
 
 def _get_metadata_filename():

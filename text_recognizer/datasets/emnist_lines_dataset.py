@@ -50,8 +50,8 @@ class EmnistLinesDataset(Dataset):
             self.emnist.input_shape[1] * self.max_length,
         )
         self.output_shape = (self.max_length, self.num_classes)
-        self.num_train = 500 if not 'COLAB_GPU' in os.environ else num_train 
-        self.num_test = 100 if not 'COLAB_GPU' in os.environ else num_test
+        self.num_train = 500 if 'COLAB_GPU' not in os.environ else num_train
+        self.num_test = 100 if 'COLAB_GPU' not in os.environ else num_test
         self.x_train = None
         self.y_train = None
         self.x_test = None
@@ -121,7 +121,7 @@ class EmnistLinesDataset(Dataset):
 
 def get_samples_by_char(samples, labels, mapping):
     samples_by_char = defaultdict(list)
-    for i, (sample, label) in enumerate(zip(samples, labels.flatten())):
+    for sample, label in zip(samples, labels.flatten()):
         samples_by_char[mapping[label]].append(sample)
     return samples_by_char
 

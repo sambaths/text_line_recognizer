@@ -3,19 +3,20 @@ import os
 from pathlib import Path
 import unittest
 
+from importlib.util import find_spec
 from text_recognizer import CharacterPredictor
 
 SUPPORT_DIRNAME = Path(__file__).parents[0].resolve() / "support" / "emnist"
 
 os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
-from importlib.util import find_spec
 if find_spec("text_recognizer") is None:
     import sys
     sys.path.append('..')
 
 
 class TestCharacterPredictor(unittest.TestCase):
+
     """Tests for the CharacterPredictor class."""
 
     def test_filename(self):

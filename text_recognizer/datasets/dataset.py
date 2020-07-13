@@ -1,3 +1,4 @@
+# pylint: disable=missing-module-docstring
 """Dataset class to be extended by dataset-specific classes."""
 from pathlib import Path
 import argparse
@@ -5,17 +6,18 @@ import os
 
 import text_recognizer.util as util
 
+
 class Dataset:
     """Simple abstract class for datasets."""
 
     @classmethod
     def data_dirname(cls):
-        """ Directory of data"""
+        """Directory of data"""
         return Path(__file__).resolve().parents[2] / "data"
 
     def load_or_generate_data(self):
-        """ Function for loading data"""
-        pass
+        """Use for loading data"""
+        pass  # pylint: disable=unnecessary-pass
 
 
 def _download_raw_dataset(metadata):

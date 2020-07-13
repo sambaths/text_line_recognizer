@@ -1,22 +1,20 @@
 """Function to train a model."""
-from time import time
 import os
-from tensorflow.keras.callbacks import EarlyStopping, Callback, ModelCheckpoint
-
+from time import time
 from importlib.util import find_spec
+from tensorflow.keras.callbacks import EarlyStopping, Callback, ModelCheckpoint
+import wandb
+from wandb.keras import WandbCallback
+from text_recognizer.datasets.dataset import Dataset
+from text_recognizer.models.base import Model
 
 if find_spec("text_recognizer") is None:
     import sys
     sys.path.append('.')
 
-from text_recognizer.datasets.dataset import Dataset
-from text_recognizer.models.base import Model
-
-import wandb
-from wandb.keras import WandbCallback
-
 EARLY_STOPPING = True
 MODEL_CHECKPOINT = True
+
 
 class WandbImageLogger(Callback):
     """Custom callback for logging image predictions"""
@@ -34,13 +32,12 @@ class WandbImageLogger(Callback):
         wandb.log({"examples": images}, commit=False)
 
 
-
 def train_model(model: Model, dataset: Dataset, epochs: int, batch_size: int, use_wandb: bool = False) -> Model:
     """Train model."""
     callbacks = []
 
     if MODEL_CHECKPOINT:
-        model_checkpoint = ModelCheckpoint(filepath=os.path.join(wandb.run.dir,model.weights_filename_only), verbose=1)
+        model_checkpoint = ModelCheckpoint(filepath=os.path.join(wandb.run.dir, model.weights_filename_only), verbose=1)
         callbacks.append(model_checkpoint)
 
     if EARLY_STOPPING:
@@ -54,9 +51,8 @@ def train_model(model: Model, dataset: Dataset, epochs: int, batch_size: int, us
         callbacks.append(wandb_callback)
 
     model.network.summary()
-
     t = time()
-    _history = model.fit(dataset=dataset, batch_size=batch_size, initial_epoch= wandb.run.step if wandb.run.resumed else 0, epochs=epochs, callbacks=callbacks)
-    print("Training took {:2f} s".format(time() - t))
+    _history = model.fit(dataset=dataset, batch_size=batch_size, initial_epoch=wandb.run.step if wandb.run.resumed else 0, epochs=epochs, callbacks=callbacks)  # pylint: disable=line-too-long
+    print("Training took {:2f}s".format(time() - t))
 
     return model

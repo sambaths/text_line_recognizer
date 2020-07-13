@@ -41,7 +41,7 @@ class FsdlHandwritingDataset(Dataset):
         PAGES_DIRNAME.mkdir(exist_ok=True, parents=True)
         ids, urls = zip(*[(id_, data["url"]) for id_, data in self.data_by_page_id.items()])
         filenames = [PAGES_DIRNAME / id_ for id_ in ids]
-        util.download_urls(urls, filenames)
+        util.download_url(urls, filenames)
 
     @property
     def line_regions_by_id(self):

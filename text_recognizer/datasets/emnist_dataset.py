@@ -28,12 +28,12 @@ PROCESSED_DATA_FILENAME = PROCESSED_DATA_DIRNAME / "byclass.h5"
 
 ESSENTIALS_FILENAME = Path(__file__).parents[0].resolve() / "emnist_essentials.json"
 
+
 class EmnistDataset(Dataset):
     """
     "The EMNIST dataset is a set of handwritten character digits derived from the NIST Special Database 19
     and converted to a 28x28 pixel image format and dataset structure that directly matches the MNIST dataset."
     From https://www.nist.gov/itl/iad/image-group/emnist-dataset
-
     The data split we will use is
     EMNIST ByClass: 814,255 characters. 62 unbalanced classes.
     """
@@ -199,6 +199,7 @@ def main():
     print(dataset)
     print(dataset.x_train.shape, dataset.y_train.shape)  # pylint: disable=E1101
     print(dataset.x_test.shape, dataset.y_test.shape)  # pylint: disable=E1101
+
 
 if __name__ == "__main__":
     main()
