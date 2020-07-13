@@ -73,9 +73,7 @@ def run_experiment(experiment_config: Dict, save_weights: bool, gpu_ind: int, us
 
     if use_wandb:
         run = wandb.init(config=experiment_config, project='text_line_recognizer-training', resume=True)
-        run.save()
-        print(run.id, run.project, run.entity)
-        
+        run.save() 
     
     if wandb.run.resumed:
         # restore the best model
@@ -129,6 +127,9 @@ def _parse_args():
 def main():
     """Run experiment."""
     args = _parse_args()
+    if args.gpu < 0:
+        gpu_manager = GPUManager()
+        args.gpu = gpu_manager.get_free_gpu() 
 
     experiment_config = json.loads(args.experiment_config)
     os.environ["CUDA_VISIBLE_DEVICES"] = f"{args.gpu}"

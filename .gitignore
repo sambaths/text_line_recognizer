@@ -145,4 +145,4 @@ test.py
 
 # pytest
 .pytest_cache/
-text_recognizer/tests/
+# text_recognizer/tests/
