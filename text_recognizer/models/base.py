@@ -51,7 +51,13 @@ class Model:
         return str(f"{self.name}_weights.h5")
 
     def fit(
-        self, dataset, batch_size: int = 32, epochs: int = 10, augment_val: bool = True, callbacks: list = None, initial_epoch: int = 0,  # pylint: disable=line-too-long
+        self,
+        dataset,
+        batch_size: int = 32,
+        epochs: int = 10,
+        augment_val: bool = True,
+        callbacks: list = None,
+        initial_epoch: int = 0,  # pylint: disable=line-too-long
     ):
         if callbacks is None:
             callbacks = []
@@ -81,7 +87,7 @@ class Model:
             use_multiprocessing=False,
             workers=1,
             shuffle=True,
-            initial_epoch=initial_epoch
+            initial_epoch=initial_epoch,
         )
 
     def evaluate(self, x: np.ndarray, y: np.ndarray, batch_size: int = 16, _verbose: bool = False):

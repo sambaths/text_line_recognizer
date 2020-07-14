@@ -8,7 +8,8 @@ from text_recognizer import util
 
 if find_spec("text_recognizer") is None:
     import sys
-    sys.path.append('.')
+
+    sys.path.append(".")
 
 
 def _get_metadata_filename():

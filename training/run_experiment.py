@@ -71,17 +71,19 @@ def run_experiment(experiment_config: Dict, save_weights: bool, gpu_ind: int, us
     experiment_config["gpu_ind"] = gpu_ind
 
     if use_wandb:
-        run = wandb.init(config=experiment_config, project='text_line_recognizer-training', resume=True)
+        run = wandb.init(config=experiment_config, project="text_line_recognizer-training", resume=True)
         run.save()
 
     if wandb.run.resumed:
         # restore the best model
         try:
             model.load_weights()
-            print('Loading model from our checkpoint !!')
+            print("Loading model from our checkpoint !!")
         except OSError:
             print("Couldn't load model from our directory, loading from wandb run directory instead !!")
-            model.load_weights_wandb(wandb.restore(model.weights_filename_only, run_path=f'{run.entity}/{run.project}/{run.id}').name)  # pylint: disable=line-too-long
+            model.load_weights_wandb(
+                wandb.restore(model.weights_filename_only, run_path=f"{run.entity}/{run.project}/{run.id}").name
+            )  # pylint: disable=line-too-long
 
     train_model(
         model,

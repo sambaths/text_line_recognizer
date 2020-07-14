@@ -10,7 +10,8 @@ from text_recognizer.models.base import Model
 
 if find_spec("text_recognizer") is None:
     import sys
-    sys.path.append('.')
+
+    sys.path.append(".")
 
 EARLY_STOPPING = True
 MODEL_CHECKPOINT = True
@@ -52,7 +53,13 @@ def train_model(model: Model, dataset: Dataset, epochs: int, batch_size: int, us
 
     model.network.summary()
     t = time()
-    _history = model.fit(dataset=dataset, batch_size=batch_size, initial_epoch=wandb.run.step if wandb.run.resumed else 0, epochs=epochs, callbacks=callbacks)  # pylint: disable=line-too-long
+    _history = model.fit(
+        dataset=dataset,
+        batch_size=batch_size,
+        initial_epoch=wandb.run.step if wandb.run.resumed else 0,
+        epochs=epochs,
+        callbacks=callbacks,
+    )  # pylint: disable=line-too-long
     print("Training took {:2f}s".format(time() - t))
 
     return model

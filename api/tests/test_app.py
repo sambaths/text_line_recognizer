@@ -18,7 +18,7 @@ class TestIntegrations(TestCase):
         self.app = app.test_client()
 
     def test_index(self):
-        response = self.app.get("/")
+        response = self.app.get("/healthcheck")
         assert response.get_data().decode() == "Hello, world!"
 
     def test_predict(self):

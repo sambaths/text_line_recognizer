@@ -16,7 +16,8 @@ os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
 if find_spec("text_recognizer") is None:
     import sys
-    sys.path.append('..')
+
+    sys.path.append("..")
 
 
 class TestEmnistLinePredictor(unittest.TestCase):
