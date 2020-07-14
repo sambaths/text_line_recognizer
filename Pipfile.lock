@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "4531dd0e573212fb3f5d4a6e7d066d3a628cb1922a2a438390829bcdeb4d5721"
+            "sha256": "6785c89907ac97aeec572727f5041105c0cd7744cb0dfdd278d28525ee63d4fe"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -22,6 +22,14 @@
             ],
             "index": "pypi",
             "version": "==0.9.0"
+        },
+        "astor": {
+            "hashes": [
+                "sha256:070a54e890cefb5b3739d19f30f5a5ec840ffc9c50ffa7d23cc9fc1a38ebbfc5",
+                "sha256:6a6effda93f4e1ce9f618779b2dd1d9d84f1e32812c23a29b3fff6fd7f63fa5e"
+            ],
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
+            "version": "==0.8.1"
         },
         "astroid": {
             "hashes": [
@@ -422,6 +430,13 @@
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'",
             "version": "==4.6.3"
+        },
+        "keras-applications": {
+            "hashes": [
+                "sha256:5579f9a12bcde9748f4a12233925a59b93b73ae6947409ff34aa2ba258189fe5",
+                "sha256:df4323692b8c1174af821bf906f1e442e63fa7589bf0f1230a0b6bdc5a810c95"
+            ],
+            "version": "==1.0.8"
         },
         "keras-preprocessing": {
             "hashes": [
@@ -1123,6 +1138,14 @@
             "markers": "python_version >= '2.6' and python_version not in '3.0, 3.1, 3.2, 3.3' and python_version < '4'",
             "version": "==3.5.4"
         },
+        "tb-nightly": {
+            "hashes": [
+                "sha256:60c159328310a56de128e89660dd3bd019583a5bb8e9c40d16e29d374ecaa7ce",
+                "sha256:8dc02a7ccc1ddbf6b471874aa378500fd888b442b0de08daa10ac0bad4971007"
+            ],
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
+            "version": "==1.14.0a20190603"
+        },
         "tensorboard": {
             "hashes": [
                 "sha256:bb6bbc75ad2d8511ba6cbd49e4417276979f49866e11841e83da8298727dbaed"
@@ -1140,26 +1163,24 @@
         },
         "tensorflow": {
             "hashes": [
-                "sha256:1dfe6e5e055770bce103806b13ed9df4cb92584e69260507bb28bf1bfa565934",
-                "sha256:2b7c68c73100b9a17463a9624bf5e5a65e26c1b427f12dbdf43efb43fa88c66c",
-                "sha256:5086d716b49dd3cff1ae5c3824a3d805f2acaeddfa461df145ab31ec221d5fce",
-                "sha256:76b2c171bff1500af6310fc37d936d445efe7730527bc9af532a2037b3625db1",
-                "sha256:8746aef85dce5a0799067ec673635d86d6f7e8c883d30cd3db85d4e068028326",
-                "sha256:9ea2dce870e0f597057e3c3ddc66ab4380230963cd26649070074af1d625fc4a",
-                "sha256:9f4a490d5c0f91778be064c4df431ded3c44f4e0bcd484b3f01e5fabf6e621d7",
-                "sha256:a0f5f3b39832d1222ba7633af644b0ca1373296f3f1d4519d8c2846ef967383c",
-                "sha256:bb89329ba84270848a8aa4f8d0f7522c9d76d4273878e54093ea5636de0df221",
-                "sha256:e5435a709d7acff8f5d1ada9aa623b969488bfd6c826bea14a5cf3ccf8ee9023",
-                "sha256:e7fa882695c04ef852445ecbe82e58d178ab6d65dacef3af49fd2509a7214347"
+                "sha256:09cb5167ddb1f533e9e8b465cba33f7eb66e5270c938bde5173f69a3c29900d8",
+                "sha256:38e6724adfd589e8d39bfd4e6f8b3a4628a5c72a9f26771b2a454d44b1d34968",
+                "sha256:3eb0bfd74e562da01943fe4a0272c5a4392757f280f8629b37a55953940b2422",
+                "sha256:4a6e9a2aad0b3dda089b4a8c5ed4e2eeddf862f1005d61d0dd0863bed15b1968",
+                "sha256:5851cb7f7fdab2957fc7085327be26eec8686afdebbac04b7f703d21244c8c9e",
+                "sha256:74d64a4f6387f0efeda0f613ffa46e1d14426910abe4aa14b774b41ce8d43cd3",
+                "sha256:8e9a5c12620b5c46a24cdb5c0256dfa77c17b486011a600d74540e068ad6774b",
+                "sha256:93c9cfc2cf144e1240aaffed3f952ab6ee0e2e9ad4f42db2263952c3fa4cd96a",
+                "sha256:9b603343c8f7e0124b306fad9e936d03ce0759b5ebf82835de004c3702384e7f",
+                "sha256:9e8f0f4801eab024618684281b9d5f990f963bb1b872cf84e341fc5d73283fb7",
+                "sha256:ae8def9d138c5a359a18a56ad8564be8aaaaa1e7bf1b53c79730316c3ae7d954",
+                "sha256:bff502c356e7c9fb32d517a6202a73df3f6afae7ff6ff7f828be885e1dfaeeb7",
+                "sha256:dfd3b1125f8a72d89a1b7ee6d42c71da43cf5225b0f40f215e6224ef08f4deff",
+                "sha256:e5ec7aa1371234ef7bca03392ede14484f3c8a368841a2b0ed6bbceff68bef44",
+                "sha256:e882223bf038c54cf7428f04ebee170647a7e348635f4057e60d2b356311c488"
             ],
             "index": "pypi",
-            "version": "==2.2.0rc2"
-        },
-        "tensorflow-estimator": {
-            "hashes": [
-                "sha256:d09dacdd127f2579cea8d5af21f4a918036b8ae246adc82f26b61f91cc247dc2"
-            ],
-            "version": "==2.2.0"
+            "version": "==2.0.0b1"
         },
         "termcolor": {
             "hashes": [
@@ -1167,6 +1188,12 @@
             ],
             "index": "pypi",
             "version": "==1.1.0"
+        },
+        "tf-estimator-nightly": {
+            "hashes": [
+                "sha256:99818ef0c70c23ce6417085c960ca2d275db9bd248abeb63da1b4f138aa00cf0"
+            ],
+            "version": "==1.14.0.dev2019060501"
         },
         "toml": {
             "hashes": [
