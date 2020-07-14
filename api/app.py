@@ -1,6 +1,10 @@
 """Flask web server serving text_recognizer predictions."""
 import os
+from io import BytesIO
+import base64
 from importlib.util import find_spec
+from PIL import Image
+import numpy as np
 from flask import Flask, request, jsonify, render_template
 import tensorflow.keras.backend as K
 
@@ -17,24 +21,29 @@ os.environ["CUDA_VISIBLE_DEVICES"] = ""  # Do not use GPU
 app = Flask(__name__)  # pylint: disable=invalid-name
 
 
+def convert_b64(image_file):
+    buffered = BytesIO()
+    image_file.save(buffered, format="PNG")
+    img_str = base64.b64encode(buffered.getvalue())
+    img_base64 = (bytes("data:image/png;base64,", encoding='utf-8') + img_str).decode('ascii')
+    return img_base64
+
+
 @app.route("/", methods=["GET", "POST"])
 def upload_predict():
     K.clear_session()
     predictor = LinePredictor()
-    if request.method == 'POST':
+    if request.method == "POST":
         image_file = request.files["image"]
-        if image_file:
-            # image_location = os.path.join("api/static/", image_file.filename)
-            # image_file.save(image_location)
-            image = util.read_image(image_location, grayscale=True)
-            pred, conf = predictor.predict(image)
-            print(pred, conf)
-            print("METRIC confidence {}".format(conf))
-            print("METRIC mean_intensity {}".format(image.mean()))
-            print("INFO pred {}".format(pred))
-            return render_template("index.html", prediction=1)
 
-    return render_template("index.html", prediction=0)
+        if image_file:
+            image = Image.open(image_file)
+            npimg = np.asarray(image, dtype=np.uint8)
+            pred, conf = predictor.predict(npimg)
+            b64_string = convert_b64(image)
+            return render_template("index.html", prediction=pred, confidence=conf, image_filename=b64_string)
+            # return render_template("index.html", prediction=pred, confidence=conf, image_filename=jpg_as_text)
+    return render_template("index.html", prediction=None, confidence=None, image_filename=None)
 
 
 @app.route("/healthcheck")
@@ -54,17 +63,15 @@ def predict():
     print("METRIC confidence {}".format(conf))
     print("METRIC mean_intensity {}".format(image.mean()))
     print("INFO pred {}".format(pred))
-    return render_template("index.html", prediction=pred, confidence=conf)
-    # return jsonify({"pred": str(pred), "conf": float(conf)})
+    return jsonify({"pred": str(pred), "conf": float(conf)})
 
 
 def _load_image():
     if request.method == "POST":
         data = request.get_json()
         if data is None:
-            image = request.files["image"]
-            # return "no json received"
-        return util.read_b64_image(data, grayscale=True)
+            return "no json received"
+        return util.read_b64_image(data['image'], grayscale=True)
     if request.method == "GET":
         image_url = request.args.get("image_url")
         if image_url is None:
@@ -76,7 +83,7 @@ def _load_image():
 
 def main():
     """Run the app."""
-    app.run(host="0.0.0.0", port=20000, debug=True)  # nosec
+    app.run(host="0.0.0.0", debug=True, port=30000)  # nosec
 
 
 if __name__ == "__main__":
