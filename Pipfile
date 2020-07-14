@@ -60,6 +60,7 @@ pydocstyle = "*"
 mypy = "*"
 bandit = "*"
 pytest = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.6"

@@ -136,8 +136,6 @@ data/interim
 wandb/
 
 data/processed/
-test.py
-
 # Big Data Files and h5py files
 *.zip
 
