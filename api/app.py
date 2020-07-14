@@ -13,6 +13,7 @@ if find_spec("text_recognizer") is None:
 
     sys.path.append(".")
 
+from text_recognizer.datasets import IamLinesDataset
 from text_recognizer.line_predictor import LinePredictor  # pylint: disable=wrong-import-position
 import text_recognizer.util as util  # pylint: disable=wrong-import-position
 
@@ -32,7 +33,7 @@ def convert_b64(image_file):
 @app.route("/", methods=["GET", "POST"])
 def upload_predict():
     K.clear_session()
-    predictor = LinePredictor()
+    predictor = LinePredictor(IamLinesDataset)
     if request.method == "POST":
         image_file = request.files["image"]
 

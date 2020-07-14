@@ -6,9 +6,9 @@ import importlib
 from typing import Dict
 import os
 import wandb
-from .util import train_model
+from util import train_model
 
-DEFAULT_TRAIN_ARGS = {"batch_size": 64, "epochs": 16}
+DEFAULT_TRAIN_ARGS = {"batch_size": 64, "epochs": 32, 'lr_decay': 1.0}
 
 
 def run_experiment(experiment_config: Dict, save_weights: bool, gpu_ind: int, use_wandb: bool = True):
@@ -90,6 +90,7 @@ def run_experiment(experiment_config: Dict, save_weights: bool, gpu_ind: int, us
         dataset,
         epochs=experiment_config["train_args"]["epochs"],
         batch_size=experiment_config["train_args"]["batch_size"],
+        lr_decay=experiment_config["train_args"]["lr_decay"],
         use_wandb=use_wandb,
     )
     score = model.evaluate(dataset.x_test, dataset.y_test)
