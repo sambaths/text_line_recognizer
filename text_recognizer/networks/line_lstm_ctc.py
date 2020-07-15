@@ -1,5 +1,5 @@
 """LSTM with CTC for handwritten text recognition within a line."""
-from tensorflow.keras.layers import Dense, Input, Reshape, TimeDistributed, Lambda, LSTM, Concatenate
+from tensorflow.keras.layers import Dense, Input, Reshape, TimeDistributed, Lambda, LSTM, Concatenate, GRU
 from tensorflow.compat.v1.keras.layers import CuDNNLSTM
 from tensorflow.keras.models import Model as KerasModel
 import tensorflow.keras.backend as K
@@ -31,7 +31,7 @@ def line_lstm_ctc(input_shape, output_shape, window_width=28, window_stride=14, 
     convnet_outputs = TimeDistributed(convnet)(image_patches)
     # (num_windows, 128)
 
-    lstm_output = CuDNNLSTM(256, return_sequences=True)(convnet_outputs)
+    lstm_output = GRU(128, return_sequences=True)(convnet_outputs)
     # (num_windows, 128)
 
     # (num_windows, num_classes)
@@ -39,7 +39,7 @@ def line_lstm_ctc(input_shape, output_shape, window_width=28, window_stride=14, 
     lstm2_output_rev = Lambda(
         lambda x: K.reverse(x, -2),
         name='lstm_output_rev')(lstm_output)
-    lstm2_output = CuDNNLSTM(256, return_sequences=True)(lstm2_output_rev)
+    lstm2_output = GRU(128, return_sequences=True)(lstm2_output_rev)
     softmax_output = Dense(num_classes, activation="softmax", name="softmax_output")(lstm2_output)
     
     input_length_processed = Lambda(

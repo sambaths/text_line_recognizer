@@ -6,7 +6,7 @@ from tensorflow.keras.layers import Conv2D, Dense, Dropout, Flatten, Lambda, Max
 from tensorflow.keras.models import Sequential, Model
 
 
-def lenet(input_shape: Tuple[int, ...], output_shape: Tuple[int, ...], layer_size: int = 64, dropout_amount: float = 0.1, batch_norm: bool = False, pooling: str = 'avg', padding: str = 'same', **kwargs) -> Model:
+def lenet(input_shape: Tuple[int, ...], output_shape: Tuple[int, ...], layer_size: int = 64, dropout_amount: float = 0.1, batch_norm: bool = True, pooling: str = 'max', padding: str = 'same', **kwargs) -> Model:
     """Return LeNet Keras model."""
     num_classes = output_shape[0]
     pool_fn = MaxPooling2D if pooling == 'max' else AveragePooling2D

@@ -15,6 +15,7 @@ if find_spec("text_recognizer") is None:
 
 from text_recognizer.datasets import IamLinesDataset
 from text_recognizer.line_predictor import LinePredictor  # pylint: disable=wrong-import-position
+from text_recognizer.paragraph_text_recognizer import ParagraphTextRecognizer
 import text_recognizer.util as util  # pylint: disable=wrong-import-position
 
 os.environ["CUDA_VISIBLE_DEVICES"] = ""  # Do not use GPU
@@ -32,8 +33,8 @@ def convert_b64(image_file):
 
 @app.route("/", methods=["GET", "POST"])
 def upload_predict():
-    K.clear_session()
-    predictor = LinePredictor(IamLinesDataset)
+    # K.clear_session()
+    # predictor = LinePredictor(IamLinesDataset)
     if request.method == "POST":
         image_file = request.files["image"]
 
@@ -88,4 +89,6 @@ def main():
 
 
 if __name__ == "__main__":
+    K.clear_session()
+    predictor = ParagraphTextRecognizer()
     main()

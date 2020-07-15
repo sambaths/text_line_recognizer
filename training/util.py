@@ -13,7 +13,6 @@ from text_recognizer.datasets.dataset import Dataset
 from text_recognizer.models.base import Model
 
 EARLY_STOPPING = True
-MODEL_CHECKPOINT = True
 
 
 class WandbImageLogger(Callback):
@@ -36,10 +35,6 @@ def train_model(model: Model, dataset: Dataset, epochs: int, batch_size: int, us
     """Train model."""
     callbacks = []
 
-    if MODEL_CHECKPOINT:
-        model_checkpoint = ModelCheckpoint(filepath=os.path.join(wandb.run.dir, model.weights_filename_only), verbose=1)
-        callbacks.append(model_checkpoint)
-
     if EARLY_STOPPING:
         early_stopping = EarlyStopping(monitor="val_loss", min_delta=0.01, patience=3, verbose=1, mode="auto")
         callbacks.append(early_stopping)
@@ -58,7 +53,6 @@ def train_model(model: Model, dataset: Dataset, epochs: int, batch_size: int, us
     _history = model.fit(
         dataset=dataset,
         batch_size=batch_size,
-        initial_epoch=wandb.run.step if wandb.run.resumed else 0,
         epochs=epochs,
         callbacks=callbacks,
     )  # pylint: disable=line-too-long
