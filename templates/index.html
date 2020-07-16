@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<!--
+	Design based on Intensify by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<!-- Template taken from https://github.com/luisvalesilva/digitre -->
+<html>
+	<head>
+		<title>Text Recognizer</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="keywords" content="data science, Python, Javascript, HTML, Machine Learning,
+		Convolutional Neural Network, CNN, MNIST">
+		<link rel="stylesheet" href="/static/css/main.css" />
+
+	</head>
+	<body>
+
+		<!-- Header -->
+			<header id="header">
+				<a href="/" class="logo">Text Recognizer</a>
+				<!--
+				<nav class="right">
+					<a href="/" class="button alt">Home</a>
+				</nav>
+				-->
+            </header>
+            <div align='center'>
+                <h1><p>Draw an Character or Upload One.</p></h1>
+            </div>
+            
+		<!-- Two -->
+            <div class="inner flex flex-3">
+                <div class="row clearfix">
+                    <div class="col-md-1" align="center">
+                        <div class="content">
+                            <canvas id="paint" width="250" height="250" style="background-color:white; border: 1px solid #000000;">Update your browser to support HTML5 Canvas</canvas>
+                            <br />
+                            <a id="clear" data-tool="eraser" class="button special small">Clear</a>
+                            &nbsp;&nbsp;
+                            <a href=# id=push_data class="button small">Submit</a>
+                            <br />
+                            <!-- To see the base64-encoded digit image remove CSS rule 'display:none;' from 'textarea' style-->
+                            <center><textarea id="data-paint" style="width:40%; display:none;"></textarea></center>
+                            <!-- Highest probability digit -->
+                            <span style="color: #6aad68; font-size: 76pt;" id=result></span>
+                            <br>
+                            <span style="color: #6aad68; font-size: 20pt;" id=probability></span>
+                        </div>
+                    </div>
+                </div>
+            <div class="col-md-3" align="center">
+                <form class="form-upload" method=post enctype=multipart/form-data  style="padding-top: 150px; padding-left: 150;">
+                    <input type="file" id="image" name="image" class="form-control" required autofocus>
+                    <button class="button small" type="submit">Predict</button>
+                    <br>
+                    {% if image_b64 %}
+                    <!-- <img class="mb-4" src="{{image_b64}}" width="400" height="40"> -->
+                    <span style="color: #6aad68; font-size: 76pt;" id=result>{{prediction}}</span>
+                    <br >
+                    <span style="color: #6aad68; font-size: 20pt;" id=probability>{{confidence}}</span>
+    
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+		<!-- Footer -->
+        <style>
+            .footer {
+              position: fixed;
+              left: 0;
+              bottom: 0;
+              width: 100%;
+              height: 40px;
+              padding-top:5px;
+              background-color: #6aad68;
+              color: white;
+              text-align: center;
+            }
+            </style>
+            
+            <div class="footer">
+              <p><a href="https://github.com/sambaths/text_line_recognizer" style="color:azure;"><strong style="color:azure;">Github Link</strong></a></p>
+            </div>
+		<!-- Scripts -->
+			<script src="/static/js/jquery.min.js"></script>
+			<script src="/static/js/jquery.scrolly.min.js"></script>
+			<script src="/static/js/skel.min.js"></script>
+			<script src="/static/js/util.js"></script>
+			<script src="/static/js/main.js"></script>
+			<script src="/static/js/paint.js"></script>
+			<script type="text/javascript">
+				$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+			</script>
+			<script type="text/javascript">
+				$(function() {
+					$('a#push_data').bind('click', function() {
+						$.ajax({
+						        url : $SCRIPT_ROOT + '/_get_character',
+						        type: "POST",
+						        data: JSON.stringify([
+						            {digit: $('textarea[id="data-paint"]').val()}
+						        ]),
+						        contentType: "application/json; charset=utf-8",
+						        dataType: "json",
+						        success: function(data){
+											$("#result").text(data.prediction);
+											$("#probability").text(data.confidence);
+						        }
+						    });
+					return false;
+					});
+				});
+			</script>
+	</body>
+</html>

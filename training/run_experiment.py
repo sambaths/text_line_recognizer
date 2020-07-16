@@ -6,9 +6,9 @@ import importlib
 from typing import Dict
 import os
 import wandb
-from util import train_model
+from .util import train_model
 
-DEFAULT_TRAIN_ARGS = {"batch_size": 64, "epochs": 32, 'lr_decay': 1.0}
+DEFAULT_TRAIN_ARGS = {"batch_size": 64, "epochs": 32, "lr_decay": 1.0}
 
 
 def run_experiment(experiment_config: Dict, save_weights: bool, gpu_ind: int, use_wandb: bool = True):
@@ -74,7 +74,7 @@ def run_experiment(experiment_config: Dict, save_weights: bool, gpu_ind: int, us
         run = wandb.init(config=experiment_config, project="text_line_recognizer-training")
         run.save()
         # restore the best model
-        
+
     train_model(
         model,
         dataset,

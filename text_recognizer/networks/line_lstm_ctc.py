@@ -1,6 +1,5 @@
 """LSTM with CTC for handwritten text recognition within a line."""
-from tensorflow.keras.layers import Dense, Input, Reshape, TimeDistributed, Lambda, LSTM, Concatenate, GRU
-from tensorflow.compat.v1.keras.layers import CuDNNLSTM
+from tensorflow.keras.layers import Dense, Input, Reshape, TimeDistributed, Lambda, GRU
 from tensorflow.keras.models import Model as KerasModel
 import tensorflow.keras.backend as K
 
@@ -9,7 +8,9 @@ from text_recognizer.networks.misc import slide_window
 from text_recognizer.networks.ctc import ctc_decode
 
 
-def line_lstm_ctc(input_shape, output_shape, window_width=28, window_stride=14, **kwargs):  # pylint: disable=too-many-locals
+def line_lstm_ctc(
+    input_shape, output_shape, window_width=28, window_stride=14, **kwargs
+):  # pylint: disable=too-many-locals
     image_height, image_width = input_shape
     output_length, num_classes = output_shape
 
@@ -36,12 +37,10 @@ def line_lstm_ctc(input_shape, output_shape, window_width=28, window_stride=14, 
 
     # (num_windows, num_classes)
     # Your code above (Lab 3)
-    lstm2_output_rev = Lambda(
-        lambda x: K.reverse(x, -2),
-        name='lstm_output_rev')(lstm_output)
+    lstm2_output_rev = Lambda(lambda x: K.reverse(x, -2), name="lstm_output_rev")(lstm_output)
     lstm2_output = GRU(128, return_sequences=True)(lstm2_output_rev)
     softmax_output = Dense(num_classes, activation="softmax", name="softmax_output")(lstm2_output)
-    
+
     input_length_processed = Lambda(
         lambda x, num_windows=None: x * num_windows, arguments={"num_windows": num_windows}
     )(input_length)

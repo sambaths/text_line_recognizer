@@ -5,6 +5,7 @@ from importlib.util import find_spec
 from tensorflow.keras.callbacks import EarlyStopping, Callback, ModelCheckpoint, LearningRateScheduler
 import wandb
 from wandb.keras import WandbCallback
+
 if find_spec("text_recognizer") is None:
     import sys
 
@@ -31,14 +32,16 @@ class WandbImageLogger(Callback):
         wandb.log({"examples": images}, commit=False)
 
 
-def train_model(model: Model, dataset: Dataset, epochs: int, batch_size: int, use_wandb: bool = False, lr_decay: float = 1.0) -> Model:
+def train_model(
+    model: Model, dataset: Dataset, epochs: int, batch_size: int, use_wandb: bool = False, lr_decay: float = 1.0
+) -> Model:
     """Train model."""
     callbacks = []
 
     if EARLY_STOPPING:
         early_stopping = EarlyStopping(monitor="val_loss", min_delta=0.01, patience=3, verbose=1, mode="auto")
         callbacks.append(early_stopping)
-    
+
     if lr_decay < 1.0:
         callbacks.append(LearningRateScheduler(lambda epoch: 0.001 * (lr_decay ** epoch)))
 
@@ -51,10 +54,7 @@ def train_model(model: Model, dataset: Dataset, epochs: int, batch_size: int, us
     model.network.summary()
     t = time()
     _history = model.fit(
-        dataset=dataset,
-        batch_size=batch_size,
-        epochs=epochs,
-        callbacks=callbacks,
+        dataset=dataset, batch_size=batch_size, epochs=epochs, callbacks=callbacks,
     )  # pylint: disable=line-too-long
     print("Training took {:2f}s".format(time() - t))
 
