@@ -35,9 +35,10 @@ def convert_b64(image_file):
     return img_base64
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["GET","POST"])
 def upload_predict():
     K.clear_session()
+    character_model = CharacterPredictor()
     if request.method == "POST":
         image_file = request.files["image"]
         if image_file:
@@ -58,12 +59,13 @@ def upload_predict():
 def character_predict():
     """Decodes image and uses it to make prediction."""
     K.clear_session()
+    character_model = CharacterPredictor()
     if request.method == "POST":
         char_image = request.data
         if len(char_image) > 20:
             image = preprocess.b64_str_to_np(char_image)
             image = preprocess.crop_img(image)
-            image = preprocess.center_img(image)
+            # image = preprocess.center_img(image)
             image = preprocess.resize_img(image)
             image = preprocess.min_max_scaler(image, final_range=(0, 1))
             image = preprocess.reshape_array(image)
@@ -85,10 +87,8 @@ def index():
 
 def main():
     """Run the app."""
-    app.run(host="0.0.0.0", debug=False, port=5000)  # nosec
+    app.run(host="0.0.0.0", debug=True, port=5000)  # nosec
 
 
 if __name__ == "__main__":
-    K.clear_session()
-    character_model = CharacterPredictor()
     main()
