@@ -37,8 +37,12 @@ def convert_b64(image_file):
 
 @app.route("/", methods=["GET","POST"])
 def upload_predict():
+<<<<<<< HEAD
     K.clear_session()
     character_model = CharacterPredictor()
+=======
+#     K.clear_session()
+>>>>>>> 2c23a95316db7cc759b6ca4da15ec31179ca89e4
     if request.method == "POST":
         image_file = request.files["image"]
         if image_file:
@@ -58,8 +62,12 @@ def upload_predict():
 @app.route("/_get_character", methods=["POST"])
 def character_predict():
     """Decodes image and uses it to make prediction."""
+<<<<<<< HEAD
     K.clear_session()
     character_model = CharacterPredictor()
+=======
+#     K.clear_session()
+>>>>>>> 2c23a95316db7cc759b6ca4da15ec31179ca89e4
     if request.method == "POST":
         char_image = request.data
         if len(char_image) > 20:
