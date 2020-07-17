@@ -6,7 +6,7 @@ import importlib
 from typing import Dict
 import os
 import wandb
-from .util import train_model
+from util import train_model
 
 DEFAULT_TRAIN_ARGS = {"batch_size": 64, "epochs": 32, "lr_decay": 1.0}
 
