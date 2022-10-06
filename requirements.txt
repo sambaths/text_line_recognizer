@@ -14,7 +14,7 @@ configparser==5.0.0
 cycler==0.10.0
 decorator==4.4.2
 docker-pycreds==0.4.0
-dparse==0.5.1
+dparse==0.5.2
 editdistance==0.5.3
 Flask==1.1.1
 gast==0.3.3
